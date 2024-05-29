@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
 
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
+  background: ${(props) => props.theme.body.bgColor};
 }
 
 html {
