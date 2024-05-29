@@ -11,9 +11,21 @@ const router = createBrowserRouter([
   },
 ]);
 
-const lightMode = {};
+const lightMode = {
+  primary: {
+    bgColor: "#fff",
+  },
 
-const darkMode = {};
+  body: {
+    bgColor: "#F4F7FD",
+  },
+};
+
+const darkMode = {
+  primary: {
+    bgColor: "#2B2C37",
+  },
+};
 
 export default function App() {
   const { isDarkMode } = useBoard();
