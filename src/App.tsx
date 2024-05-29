@@ -1,5 +1,8 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Board from "./pages/Board";
+import { GlobalStyles } from "./Globals";
+import { ThemeProvider } from "styled-components";
+import { useBoard } from "./context/useBoard";
 
 const router = createBrowserRouter([
   {
@@ -8,6 +11,17 @@ const router = createBrowserRouter([
   },
 ]);
 
+const lightMode = {};
+
+const darkMode = {};
+
 export default function App() {
-  return <RouterProvider router={router} />;
+  const { isDarkMode } = useBoard();
+
+  return (
+    <ThemeProvider theme={isDarkMode ? darkMode : lightMode}>
+      <GlobalStyles />
+      <RouterProvider router={router} />
+    </ThemeProvider>
+  );
 }
