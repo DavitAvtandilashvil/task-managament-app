@@ -14,6 +14,7 @@ const router = createBrowserRouter([
 const lightMode = {
   primary: {
     bgColor: "#fff",
+    txtColor: "#000112",
   },
 
   body: {
@@ -24,6 +25,11 @@ const lightMode = {
 const darkMode = {
   primary: {
     bgColor: "#2B2C37",
+    txtColor: "#FFFFFF",
+  },
+
+  body: {
+    bgColor: "#20212C",
   },
 };
 

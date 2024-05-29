@@ -33,6 +33,9 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   padding: 1.6rem;
   background: ${(props) => props.theme.primary.bgColor};
+  width: 100%;
+  max-width: 50rem;
+  margin: auto;
 `;
 
 const LogoAndPlatform = styled.div`
@@ -49,6 +52,14 @@ const Platform = styled.div`
   align-items: center;
   gap: 0.8rem;
   margin-left: 1.6rem;
+
+  & > h2 {
+    font-size: 1.8rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    color: ${(props) => props.theme.primary.txtColor};
+  }
 `;
 
 const Add = styled.div`
