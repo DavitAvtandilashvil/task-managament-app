@@ -50,7 +50,13 @@ const StyledHeader = styled.div`
   margin: auto;
 
   @media screen and (min-width: 768px) {
-    max-width: 100rem;
+    max-width: 130rem;
+  }
+
+  @media screen and (min-width: 1440px) {
+    max-width: none;
+    padding-left: 2.4rem;
+    padding-right: 3.2rem;
   }
 `;
 
@@ -108,6 +114,10 @@ const Platform = styled.div`
     & > img {
       display: none;
     }
+  }
+
+  @media screen and (min-width: 1440px) {
+    font-size: 2.4rem;
   }
 `;
 
