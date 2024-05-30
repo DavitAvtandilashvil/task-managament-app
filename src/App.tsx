@@ -15,6 +15,7 @@ const lightMode = {
   primary: {
     bgColor: "#fff",
     txtColor: "#000112",
+    border: "#E4EBFA",
   },
 
   body: {
@@ -26,6 +27,7 @@ const darkMode = {
   primary: {
     bgColor: "#2B2C37",
     txtColor: "#FFFFFF",
+    border: "#3E3F4E",
   },
 
   body: {
