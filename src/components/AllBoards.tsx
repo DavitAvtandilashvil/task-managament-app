@@ -3,6 +3,7 @@ import SingleColumn from "./SingleColumn";
 import { useEffect, useState } from "react";
 import { useBoard } from "../context/useBoard";
 import AddNewColumn from "./AddNewColumn";
+import BoardsNames from "./BoardsNames";
 
 export default function AllBoards() {
   const [filteredBoard, setFillteredBoard] = useState<IBoards[]>([]);
@@ -25,6 +26,8 @@ export default function AllBoards() {
         })}
       </TasksInformations>
       <AddNewColumn />
+
+      <BoardsNames />
     </StyledAllBoards>
   );
 }
@@ -34,6 +37,7 @@ const StyledAllBoards = styled.div`
   padding: 2.4rem 1.6rem;
   display: flex;
   gap: 2.4rem;
+  position: relative;
 
   @media screen and (min-width: 1440px) {
     width: 100%;

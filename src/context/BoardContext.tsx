@@ -29,7 +29,7 @@ function BoardContextProvider({ children }: BoardContextProviderProps) {
   const [boards, setBoards] = useState<IBoards[]>(data.boards);
   const [choosenBoardCategory, setChoosenBoardCategory] =
     useState("Platform Launch");
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   console.log(boards);
 
