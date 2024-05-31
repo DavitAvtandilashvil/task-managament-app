@@ -30,10 +30,8 @@ export default function AllBoards() {
 }
 
 const StyledAllBoards = styled.div`
-  /* width: 100vw; */
   overflow-x: auto;
-  padding-top: 2.4rem;
-  padding-left: 1.6rem;
+  padding: 2.4rem 1.6rem;
   display: flex;
   gap: 2.4rem;
 
