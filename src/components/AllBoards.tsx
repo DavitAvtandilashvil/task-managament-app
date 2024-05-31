@@ -2,6 +2,7 @@ import styled from "styled-components";
 import SingleColumn from "./SingleColumn";
 import { useEffect, useState } from "react";
 import { useBoard } from "../context/useBoard";
+import AddNewColumn from "./AddNewColumn";
 
 export default function AllBoards() {
   const [filteredBoard, setFillteredBoard] = useState<IBoards[]>([]);
@@ -18,15 +19,18 @@ export default function AllBoards() {
 
   return (
     <StyledAllBoards>
-      {filteredBoard[0]?.columns.map((task, index) => {
-        return <SingleColumn key={index} task={task} />;
-      })}
+      <TasksInformations>
+        {filteredBoard[0]?.columns.map((task, index) => {
+          return <SingleColumn key={index} task={task} />;
+        })}
+      </TasksInformations>
+      <AddNewColumn />
     </StyledAllBoards>
   );
 }
 
 const StyledAllBoards = styled.div`
-  width: 100vw;
+  /* width: 100vw; */
   overflow-x: auto;
   padding-top: 2.4rem;
   padding-left: 1.6rem;
@@ -37,4 +41,9 @@ const StyledAllBoards = styled.div`
     width: 100%;
     overflow-x: visible;
   }
+`;
+
+const TasksInformations = styled.div`
+  display: flex;
+  gap: 2.4rem;
 `;
