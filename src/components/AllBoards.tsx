@@ -1,13 +1,26 @@
 import styled from "styled-components";
 import SingleColumn from "./SingleColumn";
+import { useEffect, useState } from "react";
+import { useBoard } from "../context/useBoard";
 
 export default function AllBoards() {
+  const [filteredBoard, setFillteredBoard] = useState<IBoards[]>([]);
+
+  console.log(filteredBoard);
+
+  const { boards, choosenBoardCategory } = useBoard();
+
+  useEffect(() => {
+    setFillteredBoard(
+      boards.filter((board) => board.name === choosenBoardCategory)
+    );
+  }, [boards, choosenBoardCategory]);
+
   return (
     <StyledAllBoards>
-      <SingleColumn />
-      <SingleColumn />
-      <SingleColumn />
-      <SingleColumn />
+      {filteredBoard[0]?.columns.map((task, index) => {
+        return <SingleColumn key={index} task={task} />;
+      })}
     </StyledAllBoards>
   );
 }
@@ -19,4 +32,9 @@ const StyledAllBoards = styled.div`
   padding-left: 1.6rem;
   display: flex;
   gap: 2.4rem;
+
+  @media screen and (min-width: 1440px) {
+    width: 100%;
+    overflow-x: visible;
+  }
 `;

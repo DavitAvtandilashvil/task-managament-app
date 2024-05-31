@@ -1,13 +1,22 @@
 import { ReactNode, createContext, useState } from "react";
+import data from "../../data.json";
 
 interface BoardContextType {
   isDarkMode: boolean;
   setIsDarkMode: React.Dispatch<React.SetStateAction<boolean>>;
+  boards: IBoards[];
+  setBoards: React.Dispatch<React.SetStateAction<IBoards[]>>;
+  choosenBoardCategory: string;
+  setChoosenBoardCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const defaultValues: BoardContextType = {
   isDarkMode: false,
   setIsDarkMode: () => {},
+  boards: data.boards,
+  setBoards: () => {},
+  choosenBoardCategory: "Platform Launch",
+  setChoosenBoardCategory: () => {},
 };
 
 const BoardContext = createContext<BoardContextType>(defaultValues);
@@ -17,9 +26,24 @@ interface BoardContextProviderProps {
 }
 
 function BoardContextProvider({ children }: BoardContextProviderProps) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [boards, setBoards] = useState<IBoards[]>(data.boards);
+  const [choosenBoardCategory, setChoosenBoardCategory] =
+    useState("Platform Launch");
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  console.log(boards);
+
   return (
-    <BoardContext.Provider value={{ isDarkMode, setIsDarkMode }}>
+    <BoardContext.Provider
+      value={{
+        isDarkMode,
+        setIsDarkMode,
+        boards,
+        setBoards,
+        choosenBoardCategory,
+        setChoosenBoardCategory,
+      }}
+    >
       {children}
     </BoardContext.Provider>
   );

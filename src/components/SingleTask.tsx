@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
-export default function SingleTask() {
+interface SingleTaskProps {
+  content: IContent;
+}
+
+export default function SingleTask({ content }: SingleTaskProps) {
+  console.log(content);
   return (
     <StyledSingleTask>
-      <Title>Build UI for onboarding flow</Title>
+      <Title>{content.title}</Title>
       <SubStaks>0 of 3 substasks</SubStaks>
     </StyledSingleTask>
   );

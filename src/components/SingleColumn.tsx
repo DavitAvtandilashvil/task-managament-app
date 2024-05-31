@@ -1,21 +1,24 @@
 import styled from "styled-components";
 import SingleTask from "./SingleTask";
 
-export default function SingleColumn() {
+interface SingleColumnProps {
+  task: ITask;
+}
+
+export default function SingleColumn({ task }: SingleColumnProps) {
+  console.log(task);
   return (
     <StyledSingleColumn>
       <Status>
         <div></div>
-        <p>TODO (4)</p>
+        <p>
+          {task.name.toUpperCase()} ({task.tasks.length})
+        </p>
       </Status>
       <Tasks>
-        <SingleTask />
-        <SingleTask />
-        <SingleTask />
-        <SingleTask />
-        <SingleTask />
-        <SingleTask />
-        <SingleTask />
+        {task.tasks.map((content, index) => {
+          return <SingleTask key={index} content={content} />;
+        })}
       </Tasks>
     </StyledSingleColumn>
   );
