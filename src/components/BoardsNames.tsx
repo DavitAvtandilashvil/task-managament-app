@@ -4,16 +4,27 @@ import DarkOrLight from "./DarkOrLight";
 import { useBoard } from "../context/useBoard";
 
 export default function BoardsNames() {
-  const { boards } = useBoard();
+  const {
+    boards,
+    setIsBoardModalOpen,
+    choosenBoardCategory,
+    setChoosenBoardCategory,
+  } = useBoard();
   console.log(boards);
+
   return (
-    <StyledBoardsNames>
-      <AllBoards>
+    <StyledBoardsNames onClick={() => setIsBoardModalOpen(false)}>
+      <AllBoards onClick={(e) => e.stopPropagation()}>
         <p>ALL BOARDS (3)</p>
         <ChooseBoard>
           {boards?.map((item, index) => {
             return (
-              <SingleBoard key={index}>
+              <SingleBoard
+                key={index}
+                currentName={item.name}
+                name={choosenBoardCategory}
+                onClick={() => setChoosenBoardCategory(item.name)}
+              >
                 <img src={board} alt="board" />
                 <p>{item.name}</p>
               </SingleBoard>
@@ -67,13 +78,14 @@ const ChooseBoard = styled.div`
   flex-direction: column;
 `;
 
-const SingleBoard = styled.div`
+const SingleBoard = styled.div<{ name: string; currentName: string }>`
   width: 24rem;
   display: flex;
   align-items: center;
   gap: 1.2rem;
   border-radius: 0rem 10rem 10rem 0rem;
-  background: #635fc7;
+  background: ${(props) =>
+    props.name === props.currentName ? "#635fc7" : props.theme.primary.bgColor};
   padding: 1.4rem 0rem 1.5rem 2.4rem;
 
   & > img {
@@ -85,7 +97,8 @@ const SingleBoard = styled.div`
     font-size: 1.5rem;
     font-weight: 700;
     line-height: 1.89rem;
-    color: #fff;
+    color: ${(props) =>
+      props.name === props.currentName ? "#fff" : "#828FA3"};
   }
 `;
 

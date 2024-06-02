@@ -8,8 +8,6 @@ import BoardsNames from "./BoardsNames";
 export default function AllBoards() {
   const [filteredBoard, setFillteredBoard] = useState<IBoards[]>([]);
 
-  console.log(filteredBoard);
-
   const { boards, choosenBoardCategory, isBoardModalOpen } = useBoard();
 
   useEffect(() => {
@@ -38,6 +36,7 @@ const StyledAllBoards = styled.div<{ isBoardModalOpen: boolean }>`
   display: flex;
   gap: 2.4rem;
   position: relative;
+  min-height: calc(100vh - 6.4rem);
 
   @media screen and (min-width: 1440px) {
     width: 100%;

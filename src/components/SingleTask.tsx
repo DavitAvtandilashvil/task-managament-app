@@ -5,7 +5,6 @@ interface SingleTaskProps {
 }
 
 export default function SingleTask({ content }: SingleTaskProps) {
-  console.log(content);
   return (
     <StyledSingleTask>
       <Title>{content.title}</Title>
