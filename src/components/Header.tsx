@@ -9,7 +9,7 @@ import lightLogo from "/assets/logo-light.svg";
 import { useBoard } from "../context/useBoard";
 
 export default function Header() {
-  const { isDarkMode } = useBoard();
+  const { isDarkMode, setIsBoardModalOpen } = useBoard();
   return (
     <StyledHeader>
       <LogoAndPlatform>
@@ -21,7 +21,7 @@ export default function Header() {
             <img src={lightLogo} alt="light-logo" />
           )}
         </LogoContainer>
-        <Platform>
+        <Platform onClick={() => setIsBoardModalOpen((modal) => !modal)}>
           <h2>Platform Launch</h2>
           <img src={arrowDown} alt="arrowDown" />
         </Platform>

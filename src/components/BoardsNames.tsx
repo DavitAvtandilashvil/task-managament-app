@@ -1,17 +1,24 @@
 import styled from "styled-components";
 import board from "/assets/icon-board.svg";
 import DarkOrLight from "./DarkOrLight";
+import { useBoard } from "../context/useBoard";
 
 export default function BoardsNames() {
+  const { boards } = useBoard();
+  console.log(boards);
   return (
     <StyledBoardsNames>
       <AllBoards>
         <p>ALL BOARDS (3)</p>
         <ChooseBoard>
-          <SingleBoard>
-            <img src={board} alt="board" />
-            <p>Platform Launch</p>
-          </SingleBoard>
+          {boards?.map((item, index) => {
+            return (
+              <SingleBoard key={index}>
+                <img src={board} alt="board" />
+                <p>{item.name}</p>
+              </SingleBoard>
+            );
+          })}
 
           <NewBoardButton>
             <img src={board} alt="board" />

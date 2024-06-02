@@ -10,7 +10,7 @@ export default function AllBoards() {
 
   console.log(filteredBoard);
 
-  const { boards, choosenBoardCategory } = useBoard();
+  const { boards, choosenBoardCategory, isBoardModalOpen } = useBoard();
 
   useEffect(() => {
     setFillteredBoard(
@@ -19,7 +19,7 @@ export default function AllBoards() {
   }, [boards, choosenBoardCategory]);
 
   return (
-    <StyledAllBoards>
+    <StyledAllBoards isBoardModalOpen={isBoardModalOpen}>
       <TasksInformations>
         {filteredBoard[0]?.columns.map((task, index) => {
           return <SingleColumn key={index} task={task} />;
@@ -27,13 +27,13 @@ export default function AllBoards() {
       </TasksInformations>
       <AddNewColumn />
 
-      <BoardsNames />
+      {isBoardModalOpen && <BoardsNames />}
     </StyledAllBoards>
   );
 }
 
-const StyledAllBoards = styled.div`
-  overflow-x: auto;
+const StyledAllBoards = styled.div<{ isBoardModalOpen: boolean }>`
+  overflow-x: ${(props) => (props.isBoardModalOpen ? "hidden" : "auto")};
   padding: 2.4rem 1.6rem;
   display: flex;
   gap: 2.4rem;
