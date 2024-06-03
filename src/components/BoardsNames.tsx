@@ -2,6 +2,7 @@ import styled from "styled-components";
 import board from "/assets/icon-board.svg";
 import DarkOrLight from "./DarkOrLight";
 import { useBoard } from "../context/useBoard";
+import HideSidebar from "./HideSidebar";
 
 export default function BoardsNames() {
   const {
@@ -14,31 +15,36 @@ export default function BoardsNames() {
 
   return (
     <StyledBoardsNames onClick={() => setIsBoardModalOpen(false)}>
-      <AllBoards onClick={(e) => e.stopPropagation()}>
-        <p>ALL BOARDS (3)</p>
-        <ChooseBoard>
-          {boards?.map((item, index) => {
-            return (
-              <SingleBoard
-                key={index}
-                currentName={item.name}
-                name={choosenBoardCategory}
-                onClick={() => setChoosenBoardCategory(item.name)}
-              >
-                <img src={board} alt="board" />
-                <p>{item.name}</p>
-              </SingleBoard>
-            );
-          })}
+      <AllBoardsWrapper>
+        <AllBoards onClick={(e) => e.stopPropagation()}>
+          <p>ALL BOARDS (3)</p>
+          <ChooseBoard>
+            {boards?.map((item, index) => {
+              return (
+                <SingleBoard
+                  key={index}
+                  currentName={item.name}
+                  name={choosenBoardCategory}
+                  onClick={() => setChoosenBoardCategory(item.name)}
+                >
+                  <img src={board} alt="board" />
+                  <p>{item.name}</p>
+                </SingleBoard>
+              );
+            })}
 
-          <NewBoardButton>
-            <img src={board} alt="board" />
-            <p>+ Create New Board</p>
-          </NewBoardButton>
-        </ChooseBoard>
+            <NewBoardButton>
+              <img src={board} alt="board" />
+              <p>+ Create New Board</p>
+            </NewBoardButton>
+          </ChooseBoard>
+        </AllBoards>
 
-        <DarkOrLight />
-      </AllBoards>
+        <Features>
+          <DarkOrLight />
+          <HideSidebar />
+        </Features>
+      </AllBoardsWrapper>
     </StyledBoardsNames>
   );
 }
@@ -50,9 +56,14 @@ const StyledBoardsNames = styled.div`
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.5);
+
+  @media screen and (min-width: 768px) {
+    right: calc(100vw - 26.1rem);
+    background: ${(props) => props.theme.primary.bgColor};
+  }
 `;
 
-const AllBoards = styled.div`
+const AllBoardsWrapper = styled.div`
   width: 264px;
   margin-left: 50%;
   transform: translateX(-50%);
@@ -62,6 +73,15 @@ const AllBoards = styled.div`
   border-radius: 0.8rem;
   margin-top: 1.6rem;
 
+  @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+`;
+
+const AllBoards = styled.div`
   & > p {
     font-size: 1.2rem;
     font-weight: 700;
@@ -121,3 +141,5 @@ const NewBoardButton = styled.div`
     color: #635fc7;
   }
 `;
+
+const Features = styled.div``;
