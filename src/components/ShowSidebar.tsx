@@ -29,5 +29,11 @@ const StyledShowSidebar = styled.div`
     border-radius: 0px 10rem 10rem 0px;
     position: absolute;
     bottom: 3.2rem;
+
+    &:hover {
+      background: #a8a4ff;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
   }
 `;

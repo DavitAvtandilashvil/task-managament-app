@@ -23,6 +23,12 @@ const lightMode = {
       "linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.5) 100%)",
   },
 
+  hover: {
+    primary: {
+      bgColor: "rgba(99, 95, 199, 0.1)",
+    },
+  },
+
   body: {
     bgColor: "#F4F7FD",
   },
@@ -38,6 +44,12 @@ const darkMode = {
   secondary: {
     bgColor:
       "linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.125) 100%)",
+  },
+
+  hover: {
+    primary: {
+      bgColor: "#FFFFFF",
+    },
   },
 
   body: {

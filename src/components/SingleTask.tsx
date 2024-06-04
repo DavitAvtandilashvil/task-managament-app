@@ -23,6 +23,16 @@ const StyledSingleTask = styled.div`
   padding-bottom: 2.3rem;
   padding-left: 1.6rem;
   border-radius: 0.8rem;
+
+  @media screen and (min-width: 1440px) {
+    &:hover {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      & > h2 {
+        color: #635fc7;
+      }
+    }
+  }
 `;
 
 const Title = styled.h2`

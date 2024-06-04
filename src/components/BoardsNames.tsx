@@ -11,7 +11,6 @@ export default function BoardsNames() {
     choosenBoardCategory,
     setChoosenBoardCategory,
   } = useBoard();
-  console.log(boards);
 
   return (
     <StyledBoardsNames onClick={() => setIsBoardModalOpen(false)}>
@@ -125,6 +124,14 @@ const SingleBoard = styled.div<{ name: string; currentName: string }>`
     line-height: 1.89rem;
     color: ${(props) =>
       props.name === props.currentName ? "#fff" : "#828FA3"};
+  }
+
+  @media screen and (min-width: 1440px) {
+    &:hover {
+      cursor: pointer;
+      background: ${(props) => props.theme.hover.primary.bgColor};
+      transition: all 0.3s ease;
+    }
   }
 `;
 

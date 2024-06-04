@@ -36,8 +36,6 @@ function BoardContextProvider({ children }: BoardContextProviderProps) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
 
-  console.log(boards);
-
   return (
     <BoardContext.Provider
       value={{

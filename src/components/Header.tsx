@@ -30,6 +30,11 @@ export default function Header() {
         <AddImgContainer>
           <img src={addTask} alt="add-task" />
           <p>+ Add New Task</p>
+
+          <HoverModal>
+            <EditBoard>Edit Board</EditBoard>
+            <DeleteBoard>Delete Board</DeleteBoard>
+          </HoverModal>
         </AddImgContainer>
         <img src={ellipsis} alt="ellipsis" />
       </Add>
@@ -125,6 +130,7 @@ const Add = styled.div`
   display: flex;
   align-items: center;
   gap: 1.6rem;
+  position: relative;
 
   @media screen and (min-width: 768px) {
     gap: 2.4rem;
@@ -159,4 +165,30 @@ const AddImgContainer = styled.div`
       color: #fff;
     }
   }
+`;
+
+const HoverModal = styled.div`
+  position: absolute;
+  top: 7rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem;
+  width: 19.2rem;
+  gap: 1.6rem;
+  background: ${(props) => props.theme.body.bgColor};
+  border-radius: 0.8rem;
+`;
+
+const EditBoard = styled.p`
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 2.3rem;
+  color: #828fa3;
+`;
+
+const DeleteBoard = styled.p`
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 2.3rem;
+  color: #ea5555;
 `;
