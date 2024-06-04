@@ -9,7 +9,12 @@ import lightLogo from "/assets/logo-light.svg";
 import { useBoard } from "../context/useBoard";
 
 export default function Header() {
-  const { isDarkMode, setIsBoardModalOpen } = useBoard();
+  const {
+    isDarkMode,
+    setIsBoardModalOpen,
+    isEditModalOpen,
+    setIsEditModalOpen,
+  } = useBoard();
   return (
     <StyledHeader>
       <LogoAndPlatform>
@@ -31,12 +36,18 @@ export default function Header() {
           <img src={addTask} alt="add-task" />
           <p>+ Add New Task</p>
 
-          <HoverModal>
-            <EditBoard>Edit Board</EditBoard>
-            <DeleteBoard>Delete Board</DeleteBoard>
-          </HoverModal>
+          {isEditModalOpen && (
+            <HoverModal>
+              <EditBoard>Edit Board</EditBoard>
+              <DeleteBoard>Delete Board</DeleteBoard>
+            </HoverModal>
+          )}
         </AddImgContainer>
-        <img src={ellipsis} alt="ellipsis" />
+        <img
+          src={ellipsis}
+          alt="ellipsis"
+          onClick={() => setIsEditModalOpen((edit) => !edit)}
+        />
       </Add>
     </StyledHeader>
   );
@@ -134,6 +145,10 @@ const Add = styled.div`
 
   @media screen and (min-width: 768px) {
     gap: 2.4rem;
+
+    & > img {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -144,6 +159,7 @@ const AddImgContainer = styled.div`
   align-items: center;
   border-radius: 2rem;
   background: #635fc7;
+  cursor: pointer;
 
   & > p {
     display: none;
@@ -169,7 +185,7 @@ const AddImgContainer = styled.div`
 
 const HoverModal = styled.div`
   position: absolute;
-  top: 7rem;
+  top: 5.5rem;
   display: flex;
   flex-direction: column;
   padding: 1.6rem;
