@@ -24,7 +24,9 @@ export default function SingleColumn({ task }: SingleColumnProps) {
   );
 }
 
-const StyledSingleColumn = styled.div``;
+const StyledSingleColumn = styled.div`
+  width: 28rem;
+`;
 
 const Status = styled.div`
   display: flex;

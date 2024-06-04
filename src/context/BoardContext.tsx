@@ -8,6 +8,10 @@ interface BoardContextType {
   setBoards: React.Dispatch<React.SetStateAction<IBoards[]>>;
   choosenBoardCategory: string;
   setChoosenBoardCategory: React.Dispatch<React.SetStateAction<string>>;
+  isBoardModalOpen: boolean;
+  setIsBoardModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isEditModalOpen: boolean;
+  setIsEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const defaultValues: BoardContextType = {
@@ -17,6 +21,10 @@ const defaultValues: BoardContextType = {
   setBoards: () => {},
   choosenBoardCategory: "Platform Launch",
   setChoosenBoardCategory: () => {},
+  isBoardModalOpen: false,
+  setIsBoardModalOpen: () => {},
+  isEditModalOpen: false,
+  setIsEditModalOpen: () => {},
 };
 
 const BoardContext = createContext<BoardContextType>(defaultValues);
@@ -29,9 +37,9 @@ function BoardContextProvider({ children }: BoardContextProviderProps) {
   const [boards, setBoards] = useState<IBoards[]>(data.boards);
   const [choosenBoardCategory, setChoosenBoardCategory] =
     useState("Platform Launch");
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  console.log(boards);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   return (
     <BoardContext.Provider
@@ -42,6 +50,10 @@ function BoardContextProvider({ children }: BoardContextProviderProps) {
         setBoards,
         choosenBoardCategory,
         setChoosenBoardCategory,
+        isBoardModalOpen,
+        setIsBoardModalOpen,
+        isEditModalOpen,
+        setIsEditModalOpen,
       }}
     >
       {children}
