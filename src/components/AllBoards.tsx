@@ -31,7 +31,8 @@ export default function AllBoards() {
 }
 
 const StyledAllBoards = styled.div<{ isBoardModalOpen: boolean }>`
-  overflow-x: ${(props) => (props.isBoardModalOpen ? "hidden" : "auto")};
+  height: ${(props) => (props.isBoardModalOpen ? "100vh" : "auto")};
+  overflow: ${(props) => (props.isBoardModalOpen ? "hidden" : "auto")};
   padding: 2.4rem 1.6rem;
   display: flex;
   gap: 2.4rem;

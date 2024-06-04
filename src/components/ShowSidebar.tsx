@@ -1,11 +1,18 @@
 import styled from "styled-components";
 import IconShowSidebar from "/assets/icon-show-sidebar.svg";
+import { useBoard } from "../context/useBoard";
 
 export default function ShowSidebar() {
+  const { setIsBoardModalOpen, isBoardModalOpen } = useBoard();
+
   return (
-    <StyledShowSidebar>
-      <img src={IconShowSidebar} alt="show-sidebar" />
-    </StyledShowSidebar>
+    <>
+      {!isBoardModalOpen && (
+        <StyledShowSidebar onClick={() => setIsBoardModalOpen(true)}>
+          <img src={IconShowSidebar} alt="show-sidebar" />
+        </StyledShowSidebar>
+      )}
+    </>
   );
 }
 

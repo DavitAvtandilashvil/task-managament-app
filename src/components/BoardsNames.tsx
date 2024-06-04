@@ -15,9 +15,9 @@ export default function BoardsNames() {
 
   return (
     <StyledBoardsNames onClick={() => setIsBoardModalOpen(false)}>
-      <AllBoardsWrapper>
-        <AllBoards onClick={(e) => e.stopPropagation()}>
-          <p>ALL BOARDS (3)</p>
+      <AllBoardsWrapper onClick={(e) => e.stopPropagation()}>
+        <AllBoards>
+          <p>ALL BOARDS ({boards.length})</p>
           <ChooseBoard>
             {boards?.map((item, index) => {
               return (
@@ -50,16 +50,19 @@ export default function BoardsNames() {
 }
 
 const StyledBoardsNames = styled.div`
-  position: absolute;
-  top: 0;
+  position: fixed;
+  top: 8rem;
   right: 0;
   bottom: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.5);
 
   @media screen and (min-width: 768px) {
-    right: calc(100vw - 26.1rem);
+    /* right: calc(100vw - 26.1rem); */
     background: ${(props) => props.theme.primary.bgColor};
+    position: absolute;
+    top: 0;
+    background: none;
   }
 `;
 
@@ -78,6 +81,9 @@ const AllBoardsWrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     height: 100%;
+    margin-top: 0;
+    margin-left: 0;
+    transform: translateX(0);
   }
 `;
 
