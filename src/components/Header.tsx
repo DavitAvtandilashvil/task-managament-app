@@ -193,6 +193,7 @@ const HoverModal = styled.div`
   gap: 1.6rem;
   background: ${(props) => props.theme.body.bgColor};
   border-radius: 0.8rem;
+  z-index: 99;
 `;
 
 const EditBoard = styled.p`
