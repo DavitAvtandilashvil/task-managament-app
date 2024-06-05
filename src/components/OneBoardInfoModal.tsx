@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import arrowDown from "/assets/icon-chevron-down.svg";
 
 export default function OneBoardInfoModal() {
   return (
@@ -30,13 +31,26 @@ export default function OneBoardInfoModal() {
         </SubstaksList>
 
         <StatusTitle>Current Status</StatusTitle>
+
+        <StatusList>
+          <CurrentStatus>
+            <p>Doing</p>
+            <img src={arrowDown} alt="" />
+          </CurrentStatus>
+
+          <StatusCategories>
+            <p>Todo</p>
+            <p>Doing</p>
+            <p>Done</p>
+          </StatusCategories>
+        </StatusList>
       </StyledOneBoardInfoModal>
     </OneBoardInfoModalWrapper>
   );
 }
 
 const OneBoardInfoModalWrapper = styled.div`
-  position: fixed;
+  position: absolute;
   top: 0;
   right: 0;
   left: 0;
@@ -112,4 +126,43 @@ const StatusTitle = styled.p`
   font-weight: 700;
   line-height: 1.512rem;
   color: ${(props) => props.theme.secondary.txtColor};
+`;
+
+const StatusList = styled.div`
+  position: relative;
+`;
+
+const CurrentStatus = styled.div`
+  border: 1px solid #828fa340;
+  padding: 0.9rem 1.6rem;
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > p {
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 2.3rem;
+    color: ${(props) => props.theme.primary.txtColor};
+  }
+`;
+
+const StatusCategories = styled.div`
+  position: absolute;
+  width: 100%;
+  background: ${(props) => props.theme.primary.bgColor};
+  top: 4.8rem;
+  border-radius: 0.8rem;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  & > p {
+    font-size: 1.3rem;
+    font-weight: 500;
+    line-height: 2.3rem;
+    color: #828fa3;
+  }
 `;
