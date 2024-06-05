@@ -1,12 +1,19 @@
 import styled from "styled-components";
+import { useBoard } from "../context/useBoard";
 
 interface SingleTaskProps {
   content: IContent;
 }
 
 export default function SingleTask({ content }: SingleTaskProps) {
+  const { setWhichModalIsOpen } = useBoard();
+
+  function handleOpenInformation() {
+    setWhichModalIsOpen("oneBoardInfoModal");
+  }
+
   return (
-    <StyledSingleTask>
+    <StyledSingleTask onClick={() => handleOpenInformation()}>
       <Title>{content.title}</Title>
       <SubStaks>0 of 3 substasks</SubStaks>
     </StyledSingleTask>

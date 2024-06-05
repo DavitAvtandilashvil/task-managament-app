@@ -3,8 +3,11 @@ import Header from "../components/Header";
 import AllBoards from "../components/AllBoards";
 import ShowSidebar from "../components/ShowSidebar";
 import OneBoardInfoModal from "../components/OneBoardInfoModal";
+import { useBoard } from "../context/useBoard";
 
 export default function Board() {
+  const { whichModalIsOpen } = useBoard();
+
   return (
     <StyledBoard>
       <Header />
@@ -12,7 +15,7 @@ export default function Board() {
 
       <ShowSidebar />
 
-      <OneBoardInfoModal />
+      {whichModalIsOpen === "oneBoardInfoModal" && <OneBoardInfoModal />}
     </StyledBoard>
   );
 }
