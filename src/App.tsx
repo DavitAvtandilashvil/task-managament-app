@@ -16,11 +16,13 @@ const lightMode = {
     bgColor: "#fff",
     txtColor: "#000112",
     border: "#E4EBFA",
+    txtOpacity: "rgba(0, 1, 18, 0.5)",
   },
 
   secondary: {
     bgColor:
       "linear-gradient(180deg, #E9EFFA 0%, rgba(233, 239, 250, 0.5) 100%)",
+    txtColor: "#828FA3",
   },
 
   hover: {
@@ -39,11 +41,13 @@ const darkMode = {
     bgColor: "#2B2C37",
     txtColor: "#FFFFFF",
     border: "#3E3F4E",
+    txtOpacity: "rgba(255, 255, 255, 0.5)",
   },
 
   secondary: {
     bgColor:
       "linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.125) 100%)",
+    txtColor: "#FFFFFF",
   },
 
   hover: {

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import AllBoards from "../components/AllBoards";
 import ShowSidebar from "../components/ShowSidebar";
+import OneBoardInfoModal from "../components/OneBoardInfoModal";
 
 export default function Board() {
   return (
@@ -10,6 +11,8 @@ export default function Board() {
       <AllBoards />
 
       <ShowSidebar />
+
+      <OneBoardInfoModal />
     </StyledBoard>
   );
 }
