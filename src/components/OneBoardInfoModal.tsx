@@ -1,9 +1,16 @@
 import styled from "styled-components";
 import arrowDown from "/assets/icon-chevron-down.svg";
+import arrowUp from "/assets/icon-chevron-up.svg";
+import { useState } from "react";
+import { useBoard } from "../context/useBoard";
 
 export default function OneBoardInfoModal() {
+  const [isStatusModalOpen, setIsStatusModalOpen] = useState<boolean>(false);
+
+  const { setWhichModalIsOpen } = useBoard();
+
   return (
-    <OneBoardInfoModalWrapper>
+    <OneBoardInfoModalWrapper onClick={() => setWhichModalIsOpen("")}>
       <StyledOneBoardInfoModal>
         <Title>
           Research pricing points of various competitors and trial different
@@ -33,16 +40,22 @@ export default function OneBoardInfoModal() {
         <StatusTitle>Current Status</StatusTitle>
 
         <StatusList>
-          <CurrentStatus>
+          <CurrentStatus onClick={() => setIsStatusModalOpen((open) => !open)}>
             <p>Doing</p>
-            <img src={arrowDown} alt="" />
+            {isStatusModalOpen ? (
+              <img src={arrowUp} alt="arrow-up" />
+            ) : (
+              <img src={arrowDown} alt="arrow-down" />
+            )}
           </CurrentStatus>
 
-          <StatusCategories>
-            <p>Todo</p>
-            <p>Doing</p>
-            <p>Done</p>
-          </StatusCategories>
+          {isStatusModalOpen && (
+            <StatusCategories>
+              <p>Todo</p>
+              <p>Doing</p>
+              <p>Done</p>
+            </StatusCategories>
+          )}
         </StatusList>
       </StyledOneBoardInfoModal>
     </OneBoardInfoModalWrapper>
