@@ -1,47 +1,79 @@
 import styled from "styled-components";
 import arrowDown from "/assets/icon-chevron-down.svg";
 import arrowUp from "/assets/icon-chevron-up.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useBoard } from "../context/useBoard";
+import ellipsis from "/assets/icon-vertical-ellipsis.svg";
+import check from "/assets/icon-check.svg";
 
 export default function OneBoardInfoModal() {
   const [isStatusModalOpen, setIsStatusModalOpen] = useState<boolean>(false);
+  const [isHoverModalOpen, setIsHoverModalOpen] = useState(false);
+  const [substuckCounter, setSubstuckCounter] = useState(0);
 
-  const { setWhichModalIsOpen } = useBoard();
+  const { setWhichModalIsOpen, clickedBoard } = useBoard();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    clickedBoard?.subtasks?.map((item) => {
+      if (item.isCompleted) {
+        setSubstuckCounter((count) => (count += 1));
+      }
+    });
+
+    return () => {
+      setSubstuckCounter(0);
+    };
+  }, [clickedBoard?.subtasks]);
 
   return (
     <OneBoardInfoModalWrapper onClick={() => setWhichModalIsOpen("")}>
-      <StyledOneBoardInfoModal>
-        <Title>
-          Research pricing points of various competitors and trial different
-          business models
-        </Title>
+      <StyledOneBoardInfoModal onClick={(e) => e.stopPropagation()}>
+        <TiTleDiv>
+          <Title>{clickedBoard.title}</Title>
 
-        <Description>
-          We know what we're planning to build for version one. Now we need to
-          finalise the first pricing model we'll use. Keep iterating the
-          subtasks until we have a coherent proposition.
-        </Description>
+          <img
+            src={ellipsis}
+            alt="ellipsis"
+            onClick={() => setIsHoverModalOpen((modal) => !modal)}
+          />
 
-        <SubstakTitle>Subtasks (2 of 3)</SubstakTitle>
+          {isHoverModalOpen && (
+            <HoverModal>
+              <EditBoard>Edit Task</EditBoard>
+              <DeleteBoard>Delete Task</DeleteBoard>
+            </HoverModal>
+          )}
+        </TiTleDiv>
+
+        <Description>{clickedBoard.description}</Description>
+
+        <SubstakTitle>
+          Subtasks ({substuckCounter} of {clickedBoard.subtasks?.length})
+        </SubstakTitle>
 
         <SubstaksList>
-          <SingleSubstak>
-            <div></div>
-            <p>Research competitor pricing and business models</p>
-          </SingleSubstak>
-
-          <SingleSubstak>
-            <div></div>
-            <p>Research competitor pricing and business models</p>
-          </SingleSubstak>
+          {clickedBoard.subtasks?.map((item, index) => {
+            return (
+              <SingleSubstak
+                key={index}
+                iscompleted={item?.isCompleted ? "true" : "false"}
+              >
+                <div>
+                  {item?.isCompleted && <img src={check} alt="check" />}
+                </div>
+                <p>{item.title}</p>
+              </SingleSubstak>
+            );
+          })}
         </SubstaksList>
 
         <StatusTitle>Current Status</StatusTitle>
 
         <StatusList>
           <CurrentStatus onClick={() => setIsStatusModalOpen((open) => !open)}>
-            <p>Doing</p>
+            <p>{clickedBoard.status}</p>
             {isStatusModalOpen ? (
               <img src={arrowUp} alt="arrow-up" />
             ) : (
@@ -79,6 +111,54 @@ const StyledOneBoardInfoModal = styled.div`
   background: ${(props) => props.theme.body.bgColor};
   padding: 2.4rem 2.4rem 3.2rem 2.4rem;
   border-radius: 0.8rem;
+
+  @media screen and (min-width: 768px) {
+    width: 48rem;
+    padding: 3.2rem;
+  }
+
+  @media screen and (min-width: 1440px) {
+    margin-top: 15rem;
+  }
+`;
+
+const TiTleDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2.3rem;
+  justify-content: space-between;
+
+  & > img {
+    cursor: pointer;
+  }
+`;
+
+const HoverModal = styled.div`
+  position: absolute;
+  top: 9.5rem;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.6rem;
+  width: 19.2rem;
+  gap: 1.6rem;
+  background: ${(props) => props.theme.body.bgColor};
+  border-radius: 0.8rem;
+  z-index: 99;
+`;
+
+const EditBoard = styled.p`
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 2.3rem;
+  color: #828fa3;
+`;
+
+const DeleteBoard = styled.p`
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 2.3rem;
+  color: #ea5555;
 `;
 
 const Title = styled.h2`
@@ -107,22 +187,35 @@ const SubstakTitle = styled.p`
 const SubstaksList = styled.div`
   margin-top: 1.6rem;
   display: flex;
-  align-items: center;
   flex-direction: column;
   gap: 0.8rem;
 `;
 
-const SingleSubstak = styled.div`
+const SingleSubstak = styled.div<{ iscompleted: string }>`
   padding: 1.3rem 0.8rem 1.6rem 1.2rem;
   display: flex;
   align-items: center;
+  justify-content: start;
   gap: 1.6rem;
 
+  @media screen and (min-width: 1440px) {
+    &:hover {
+      background: rgba(99, 95, 199, 0.25);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+  }
+
   & > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 1.6rem;
     height: 1.6rem;
     border-radius: 2px;
     border: 1px solid rgba(130, 143, 163, 0.25);
+    background: ${(props) =>
+      props.iscompleted === "true" ? "#635FC7" : props.theme.primary.bgColor};
   }
 
   & > p {
