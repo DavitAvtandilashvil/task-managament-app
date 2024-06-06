@@ -6,10 +6,13 @@ interface SingleTaskProps {
 }
 
 export default function SingleTask({ content }: SingleTaskProps) {
-  const { setWhichModalIsOpen } = useBoard();
+  const { setWhichModalIsOpen, setClickedBoard } = useBoard();
 
   function handleOpenInformation() {
     setWhichModalIsOpen("oneBoardInfoModal");
+    setClickedBoard(content);
+
+    console.log(content);
   }
 
   return (

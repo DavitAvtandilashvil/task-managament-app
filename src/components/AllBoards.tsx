@@ -17,7 +17,7 @@ export default function AllBoards() {
   }, [boards, choosenBoardCategory]);
 
   return (
-    <StyledAllBoards isBoardModalOpen={isBoardModalOpen}>
+    <StyledAllBoards isboardmodalopen={isBoardModalOpen.toString()}>
       <TasksInformations>
         {filteredBoard[0]?.columns.map((task, index) => {
           return <SingleColumn key={index} task={task} />;
@@ -30,9 +30,10 @@ export default function AllBoards() {
   );
 }
 
-const StyledAllBoards = styled.div<{ isBoardModalOpen: boolean }>`
-  height: ${(props) => (props.isBoardModalOpen ? "100vh" : "auto")};
-  overflow: ${(props) => (props.isBoardModalOpen ? "hidden" : "auto")};
+const StyledAllBoards = styled.div<{ isboardmodalopen: string }>`
+  height: ${(props) => (props.isboardmodalopen === "true" ? "100vh" : "auto")};
+  overflow: ${(props) =>
+    props.isboardmodalopen === "true" ? "hidden" : "auto"};
   padding: 2.4rem 1.6rem;
   display: flex;
   gap: 2.4rem;

@@ -14,6 +14,8 @@ interface BoardContextType {
   setIsEditModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   whichModalIsOpen: string;
   setWhichModalIsOpen: React.Dispatch<React.SetStateAction<string>>;
+  clickedBoard: IContent;
+  setClickedBoard: React.Dispatch<React.SetStateAction<IContent>>;
 }
 
 const defaultValues: BoardContextType = {
@@ -29,6 +31,8 @@ const defaultValues: BoardContextType = {
   setIsEditModalOpen: () => {},
   whichModalIsOpen: "",
   setWhichModalIsOpen: () => {},
+  clickedBoard: {},
+  setClickedBoard: () => {},
 };
 
 const BoardContext = createContext<BoardContextType>(defaultValues);
@@ -45,6 +49,7 @@ function BoardContextProvider({ children }: BoardContextProviderProps) {
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [whichModalIsOpen, setWhichModalIsOpen] = useState("");
+  const [clickedBoard, setClickedBoard] = useState<IContent>({});
 
   return (
     <BoardContext.Provider
@@ -61,6 +66,8 @@ function BoardContextProvider({ children }: BoardContextProviderProps) {
         setIsEditModalOpen,
         whichModalIsOpen,
         setWhichModalIsOpen,
+        clickedBoard,
+        setClickedBoard,
       }}
     >
       {children}

@@ -31,11 +31,11 @@ interface ITask {
 }
 
 interface IContent {
-  title: string;
-  description: string;
-  status: string;
-  subtasks: {
-    title: string;
-    isCompleted: boolean;
+  title?: string;
+  description?: string;
+  status?: string;
+  subtasks?: {
+    title?: string;
+    isCompleted?: boolean;
   }[];
 }

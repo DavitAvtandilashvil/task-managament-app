@@ -6,7 +6,6 @@ interface SingleColumnProps {
 }
 
 export default function SingleColumn({ task }: SingleColumnProps) {
-  console.log(task);
   return (
     <StyledSingleColumn>
       <Status>
