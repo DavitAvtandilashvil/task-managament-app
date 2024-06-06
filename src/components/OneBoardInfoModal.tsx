@@ -58,7 +58,7 @@ export default function OneBoardInfoModal() {
             return (
               <SingleSubstak
                 key={index}
-                iscompleted={item?.isCompleted ? true : false}
+                iscompleted={item?.isCompleted ? "true" : "false"}
               >
                 <div>
                   {item?.isCompleted && <img src={check} alt="check" />}
@@ -191,7 +191,7 @@ const SubstaksList = styled.div`
   gap: 0.8rem;
 `;
 
-const SingleSubstak = styled.div<{ iscompleted: boolean }>`
+const SingleSubstak = styled.div<{ iscompleted: string }>`
   padding: 1.3rem 0.8rem 1.6rem 1.2rem;
   display: flex;
   align-items: center;
@@ -215,7 +215,7 @@ const SingleSubstak = styled.div<{ iscompleted: boolean }>`
     border-radius: 2px;
     border: 1px solid rgba(130, 143, 163, 0.25);
     background: ${(props) =>
-      props.iscompleted ? "#635FC7" : props.theme.primary.bgColor};
+      props.iscompleted === "true" ? "#635FC7" : props.theme.primary.bgColor};
   }
 
   & > p {
