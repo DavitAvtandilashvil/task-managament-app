@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import arrowDown from "/assets/icon-chevron-down.svg";
 import arrowUp from "/assets/icon-chevron-up.svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useBoard } from "../context/useBoard";
 import ellipsis from "/assets/icon-vertical-ellipsis.svg";
 import check from "/assets/icon-check.svg";
@@ -9,8 +9,23 @@ import check from "/assets/icon-check.svg";
 export default function OneBoardInfoModal() {
   const [isStatusModalOpen, setIsStatusModalOpen] = useState<boolean>(false);
   const [isHoverModalOpen, setIsHoverModalOpen] = useState(false);
+  const [substuckCounter, setSubstuckCounter] = useState(0);
 
   const { setWhichModalIsOpen, clickedBoard } = useBoard();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    clickedBoard?.subtasks?.map((item) => {
+      if (item.isCompleted) {
+        setSubstuckCounter((count) => (count += 1));
+      }
+    });
+
+    return () => {
+      setSubstuckCounter(0);
+    };
+  }, [clickedBoard?.subtasks]);
 
   return (
     <OneBoardInfoModalWrapper onClick={() => setWhichModalIsOpen("")}>
@@ -26,15 +41,17 @@ export default function OneBoardInfoModal() {
 
           {isHoverModalOpen && (
             <HoverModal>
-              <EditBoard>Edit Board</EditBoard>
-              <DeleteBoard>Delete Board</DeleteBoard>
+              <EditBoard>Edit Task</EditBoard>
+              <DeleteBoard>Delete Task</DeleteBoard>
             </HoverModal>
           )}
         </TiTleDiv>
 
         <Description>{clickedBoard.description}</Description>
 
-        <SubstakTitle>Subtasks (2 of 3)</SubstakTitle>
+        <SubstakTitle>
+          Subtasks ({substuckCounter} of {clickedBoard.subtasks?.length})
+        </SubstakTitle>
 
         <SubstaksList>
           {clickedBoard.subtasks?.map((item, index) => {
@@ -197,7 +214,8 @@ const SingleSubstak = styled.div<{ iscompleted: boolean }>`
     height: 1.6rem;
     border-radius: 2px;
     border: 1px solid rgba(130, 143, 163, 0.25);
-    background: ${(props) => (props.iscompleted ? "#635FC7" : "#2B2C37")};
+    background: ${(props) =>
+      props.iscompleted ? "#635FC7" : props.theme.primary.bgColor};
   }
 
   & > p {

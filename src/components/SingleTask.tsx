@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useBoard } from "../context/useBoard";
+import { useEffect, useState } from "react";
 
 interface SingleTaskProps {
   content: IContent;
@@ -7,6 +8,7 @@ interface SingleTaskProps {
 
 export default function SingleTask({ content }: SingleTaskProps) {
   const { setWhichModalIsOpen, setClickedBoard } = useBoard();
+  const [substuckCounter, setSubstuckCounter] = useState(0);
 
   function handleOpenInformation() {
     setWhichModalIsOpen("oneBoardInfoModal");
@@ -15,10 +17,24 @@ export default function SingleTask({ content }: SingleTaskProps) {
     console.log(content);
   }
 
+  useEffect(() => {
+    content?.subtasks?.map((item) => {
+      if (item.isCompleted) {
+        setSubstuckCounter((count) => (count += 1));
+      }
+    });
+
+    return () => {
+      setSubstuckCounter(0);
+    };
+  }, [content.subtasks]);
+
   return (
     <StyledSingleTask onClick={() => handleOpenInformation()}>
       <Title>{content.title}</Title>
-      <SubStaks>0 of 3 substasks</SubStaks>
+      <SubStaks>
+        {substuckCounter} of {content.subtasks?.length} substasks
+      </SubStaks>
     </StyledSingleTask>
   );
 }
