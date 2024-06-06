@@ -11,7 +11,31 @@ export default function OneBoardInfoModal() {
   const [isHoverModalOpen, setIsHoverModalOpen] = useState(false);
   const [substuckCounter, setSubstuckCounter] = useState(0);
 
-  const { setWhichModalIsOpen, clickedBoard } = useBoard();
+  const {
+    setWhichModalIsOpen,
+    clickedBoard,
+    setClickedBoard,
+    boards,
+    setBoards,
+  } = useBoard();
+
+  console.log(boards);
+
+  function handleSubstuck(title: string) {
+    const substuckIndex = clickedBoard.subtasks?.findIndex(
+      (sub) => title === sub.title
+    );
+
+    if (
+      substuckIndex !== undefined &&
+      substuckIndex !== -1 &&
+      clickedBoard.subtasks !== undefined
+    ) {
+      clickedBoard.subtasks[substuckIndex].isCompleted =
+        !clickedBoard.subtasks[substuckIndex].isCompleted;
+      setClickedBoard({ ...clickedBoard });
+    }
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -59,6 +83,7 @@ export default function OneBoardInfoModal() {
               <SingleSubstak
                 key={index}
                 iscompleted={item?.isCompleted ? "true" : "false"}
+                onClick={() => handleSubstuck(item.title)}
               >
                 <div>
                   {item?.isCompleted && <img src={check} alt="check" />}
