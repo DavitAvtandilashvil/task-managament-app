@@ -60,7 +60,6 @@ function BoardContextProvider({ children }: BoardContextProviderProps) {
     useState<IContent>(defaultClickedBoard);
 
   console.log(boards);
-  console.log(choosenBoardCategory);
 
   return (
     <BoardContext.Provider
