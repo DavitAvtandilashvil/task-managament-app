@@ -18,6 +18,13 @@ interface BoardContextType {
   setClickedBoard: React.Dispatch<React.SetStateAction<IContent>>;
 }
 
+const defaultClickedBoard: IContent = {
+  title: "",
+  description: "",
+  status: "",
+  subtasks: [],
+};
+
 const defaultValues: BoardContextType = {
   isDarkMode: false,
   setIsDarkMode: () => {},
@@ -31,7 +38,7 @@ const defaultValues: BoardContextType = {
   setIsEditModalOpen: () => {},
   whichModalIsOpen: "",
   setWhichModalIsOpen: () => {},
-  clickedBoard: {},
+  clickedBoard: defaultClickedBoard,
   setClickedBoard: () => {},
 };
 
@@ -49,7 +56,10 @@ function BoardContextProvider({ children }: BoardContextProviderProps) {
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [whichModalIsOpen, setWhichModalIsOpen] = useState("");
-  const [clickedBoard, setClickedBoard] = useState<IContent>({});
+  const [clickedBoard, setClickedBoard] =
+    useState<IContent>(defaultClickedBoard);
+
+  console.log(boards);
 
   return (
     <BoardContext.Provider

@@ -11,7 +11,23 @@ export default function OneBoardInfoModal() {
   const [isHoverModalOpen, setIsHoverModalOpen] = useState(false);
   const [substuckCounter, setSubstuckCounter] = useState(0);
 
-  const { setWhichModalIsOpen, clickedBoard } = useBoard();
+  const {
+    setWhichModalIsOpen,
+    clickedBoard,
+    boards,
+    setBoards,
+    choosenBoardCategory,
+  } = useBoard();
+
+  const boardNameIndex = boards.findIndex(
+    (board) => board.name === choosenBoardCategory
+  );
+  const columnNameIndex = boards[boardNameIndex].columns.findIndex(
+    (column) => column.name === clickedBoard.status
+  );
+  const taskTitleIndex = boards[boardNameIndex].columns[
+    columnNameIndex
+  ].tasks.findIndex((task) => task.title === clickedBoard.title);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,6 +42,34 @@ export default function OneBoardInfoModal() {
       setSubstuckCounter(0);
     };
   }, [clickedBoard?.subtasks]);
+
+  function handleSubstuck(title: string) {
+    const substuckIndex = boards[boardNameIndex].columns[columnNameIndex].tasks[
+      taskTitleIndex
+    ].subtasks.findIndex((substuck) => substuck.title === title);
+
+    boards[boardNameIndex].columns[columnNameIndex].tasks[
+      taskTitleIndex
+    ].subtasks[substuckIndex].isCompleted =
+      !boards[boardNameIndex].columns[columnNameIndex].tasks[taskTitleIndex]
+        .subtasks[substuckIndex].isCompleted;
+
+    setBoards([...boards]);
+  }
+
+  function handleDelete(title: string) {
+    const updatedTasks = boards[boardNameIndex].columns[
+      columnNameIndex
+    ].tasks.filter((board) => board.title !== title);
+
+    boards[boardNameIndex].columns[columnNameIndex].tasks = [...updatedTasks];
+    console.log(updatedTasks);
+
+    console.log(boards);
+
+    setBoards([...boards]);
+    setWhichModalIsOpen("");
+  }
 
   return (
     <OneBoardInfoModalWrapper onClick={() => setWhichModalIsOpen("")}>
@@ -42,7 +86,9 @@ export default function OneBoardInfoModal() {
           {isHoverModalOpen && (
             <HoverModal>
               <EditBoard>Edit Task</EditBoard>
-              <DeleteBoard>Delete Task</DeleteBoard>
+              <DeleteBoard onClick={() => handleDelete(clickedBoard.title)}>
+                Delete Task
+              </DeleteBoard>
             </HoverModal>
           )}
         </TiTleDiv>
@@ -59,6 +105,7 @@ export default function OneBoardInfoModal() {
               <SingleSubstak
                 key={index}
                 iscompleted={item?.isCompleted ? "true" : "false"}
+                onClick={() => handleSubstuck(item.title)}
               >
                 <div>
                   {item?.isCompleted && <img src={check} alt="check" />}
@@ -135,16 +182,20 @@ const TiTleDiv = styled.div`
 
 const HoverModal = styled.div`
   position: absolute;
-  top: 9.5rem;
-  right: 0;
+  top: 6.5rem;
+  right: 1rem;
   display: flex;
   flex-direction: column;
   padding: 1.6rem;
   width: 19.2rem;
   gap: 1.6rem;
-  background: ${(props) => props.theme.body.bgColor};
+  background: ${(props) => props.theme.primary.bgColor};
   border-radius: 0.8rem;
   z-index: 99;
+
+  @media screen and (min-width: 1440px) {
+    cursor: pointer;
+  }
 `;
 
 const EditBoard = styled.p`
