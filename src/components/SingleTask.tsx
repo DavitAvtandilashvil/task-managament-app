@@ -7,14 +7,12 @@ interface SingleTaskProps {
 }
 
 export default function SingleTask({ content }: SingleTaskProps) {
-  const { setWhichModalIsOpen, setClickedBoard } = useBoard();
+  const { setWhichModalIsOpen, setClickedBoard, boards } = useBoard();
   const [substuckCounter, setSubstuckCounter] = useState(0);
 
   function handleOpenInformation() {
     setWhichModalIsOpen("oneBoardInfoModal");
     setClickedBoard(content);
-
-    console.log(content);
   }
 
   useEffect(() => {
@@ -27,7 +25,7 @@ export default function SingleTask({ content }: SingleTaskProps) {
     return () => {
       setSubstuckCounter(0);
     };
-  }, [content.subtasks]);
+  }, [content.subtasks, boards]);
 
   return (
     <StyledSingleTask onClick={() => handleOpenInformation()}>

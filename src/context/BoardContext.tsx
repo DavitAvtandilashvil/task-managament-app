@@ -59,6 +59,8 @@ function BoardContextProvider({ children }: BoardContextProviderProps) {
   const [clickedBoard, setClickedBoard] =
     useState<IContent>(defaultClickedBoard);
 
+  console.log(boards);
+
   return (
     <BoardContext.Provider
       value={{

@@ -14,27 +14,35 @@ export default function OneBoardInfoModal() {
   const {
     setWhichModalIsOpen,
     clickedBoard,
-    setClickedBoard,
     boards,
     setBoards,
+    choosenBoardCategory,
   } = useBoard();
 
-  console.log(boards);
-
   function handleSubstuck(title: string) {
-    const substuckIndex = clickedBoard.subtasks?.findIndex(
-      (sub) => title === sub.title
+    const boardNameIndex = boards.findIndex(
+      (board) => board.name === choosenBoardCategory
     );
 
-    if (
-      substuckIndex !== undefined &&
-      substuckIndex !== -1 &&
-      clickedBoard.subtasks !== undefined
-    ) {
-      clickedBoard.subtasks[substuckIndex].isCompleted =
-        !clickedBoard.subtasks[substuckIndex].isCompleted;
-      setClickedBoard({ ...clickedBoard });
-    }
+    const columnNameIndex = boards[boardNameIndex].columns.findIndex(
+      (column) => column.name === clickedBoard.status
+    );
+
+    const taskTitleIndex = boards[boardNameIndex].columns[
+      columnNameIndex
+    ].tasks.findIndex((task) => task.title === clickedBoard.title);
+
+    const substuckIndex = boards[boardNameIndex].columns[columnNameIndex].tasks[
+      taskTitleIndex
+    ].subtasks.findIndex((substuck) => substuck.title === title);
+
+    boards[boardNameIndex].columns[columnNameIndex].tasks[
+      taskTitleIndex
+    ].subtasks[substuckIndex].isCompleted =
+      !boards[boardNameIndex].columns[columnNameIndex].tasks[taskTitleIndex]
+        .subtasks[substuckIndex].isCompleted;
+
+    setBoards([...boards]);
   }
 
   useEffect(() => {
