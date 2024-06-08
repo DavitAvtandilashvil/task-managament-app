@@ -19,14 +19,20 @@ export default function OneBoardInfoModal() {
     choosenBoardCategory,
   } = useBoard();
 
+  console.log(clickedBoard);
+
   function handleSubstuck(title: string) {
     const boardNameIndex = boards.findIndex(
       (board) => board.name === choosenBoardCategory
     );
 
+    console.log(boardNameIndex);
+
     const columnNameIndex = boards[boardNameIndex].columns.findIndex(
       (column) => column.name === clickedBoard.status
     );
+
+    console.log(columnNameIndex);
 
     const taskTitleIndex = boards[boardNameIndex].columns[
       columnNameIndex
