@@ -14,6 +14,7 @@ export default function OneBoardInfoModal() {
   const {
     setWhichModalIsOpen,
     clickedBoard,
+    setClickedBoard,
     boards,
     setBoards,
     choosenBoardCategory,
@@ -41,7 +42,7 @@ export default function OneBoardInfoModal() {
     return () => {
       setSubstuckCounter(0);
     };
-  }, [clickedBoard?.subtasks]);
+  }, [clickedBoard?.subtasks, boards]);
 
   function handleSubstuck(title: string) {
     const substuckIndex = boards[boardNameIndex].columns[columnNameIndex].tasks[
@@ -65,10 +66,37 @@ export default function OneBoardInfoModal() {
     boards[boardNameIndex].columns[columnNameIndex].tasks = [...updatedTasks];
     console.log(updatedTasks);
 
-    console.log(boards);
-
     setBoards([...boards]);
     setWhichModalIsOpen("");
+  }
+
+  function handleChangeStatus(status: string) {
+    const stayStatusIndex = boards[boardNameIndex].columns.findIndex(
+      (column) => column.name === clickedBoard.status
+    );
+
+    const moveStatusIndex = boards[boardNameIndex].columns.findIndex(
+      (column) => column.name === status
+    );
+
+    if (stayStatusIndex === moveStatusIndex) return;
+
+    const removeChangedStatus = boards[boardNameIndex].columns[
+      stayStatusIndex
+    ].tasks.filter((task) => task.title !== clickedBoard.title);
+
+    boards[boardNameIndex].columns[stayStatusIndex].tasks = [
+      ...removeChangedStatus,
+    ];
+
+    boards[boardNameIndex].columns[moveStatusIndex].tasks.push(clickedBoard);
+    console.log(boards);
+
+    clickedBoard.status = status;
+    setClickedBoard(clickedBoard);
+
+    setBoards([...boards]);
+    setIsStatusModalOpen(false);
   }
 
   return (
@@ -130,9 +158,18 @@ export default function OneBoardInfoModal() {
 
           {isStatusModalOpen && (
             <StatusCategories>
-              <p>Todo</p>
-              <p>Doing</p>
-              <p>Done</p>
+              {boards[boardNameIndex].columns.map((column) => {
+                return (
+                  <p
+                    key={column.name}
+                    onClick={() => {
+                      handleChangeStatus(column.name);
+                    }}
+                  >
+                    {column.name}
+                  </p>
+                );
+              })}
             </StatusCategories>
           )}
         </StatusList>
