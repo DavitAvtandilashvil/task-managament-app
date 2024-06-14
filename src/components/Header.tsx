@@ -14,6 +14,8 @@ export default function Header() {
     setIsBoardModalOpen,
     isEditModalOpen,
     setIsEditModalOpen,
+    setWhichModalIsOpen,
+    choosenBoardCategory,
   } = useBoard();
   return (
     <StyledHeader>
@@ -27,12 +29,12 @@ export default function Header() {
           )}
         </LogoContainer>
         <Platform onClick={() => setIsBoardModalOpen((modal) => !modal)}>
-          <h2>Platform Launch</h2>
+          <h2>{choosenBoardCategory}</h2>
           <img src={arrowDown} alt="arrowDown" />
         </Platform>
       </LogoAndPlatform>
       <Add>
-        <AddImgContainer>
+        <AddImgContainer onClick={() => setWhichModalIsOpen("createModal")}>
           <img src={addTask} alt="add-task" />
           <p>+ Add New Task</p>
 

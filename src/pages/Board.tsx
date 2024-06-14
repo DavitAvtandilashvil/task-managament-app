@@ -18,7 +18,7 @@ export default function Board() {
 
       {whichModalIsOpen === "oneBoardInfoModal" && <OneBoardInfoModal />}
 
-      <AddOrEditTaskModal />
+      {whichModalIsOpen === "createModal" && <AddOrEditTaskModal />}
     </StyledBoard>
   );
 }
