@@ -25,6 +25,10 @@ const lightMode = {
     txtColor: "#828FA3",
   },
 
+  button: {
+    bgColor: "rgba(99, 95, 199, 0.10)",
+  },
+
   hover: {
     primary: {
       bgColor: "rgba(99, 95, 199, 0.1)",
@@ -48,6 +52,10 @@ const darkMode = {
     bgColor:
       "linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.125) 100%)",
     txtColor: "#FFFFFF",
+  },
+
+  button: {
+    bgColor: "#fff",
   },
 
   hover: {
