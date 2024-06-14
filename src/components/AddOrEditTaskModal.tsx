@@ -3,13 +3,22 @@ import SubstucksDiv from "./SubstucksDiv";
 import { useState } from "react";
 import arrowDown from "/assets/icon-chevron-down.svg";
 import arrowUp from "/assets/icon-chevron-up.svg";
+import { useBoard } from "../context/useBoard";
 
 export default function AddOrEditTaskModal() {
   const [isStatusModalOpen, setIsStatusModalOpen] = useState<boolean>(false);
 
+  const { boards, setWhichModalIsOpen, choosenBoardCategory } = useBoard();
+
+  const boardNameIndex = boards.findIndex(
+    (board) => board.name === choosenBoardCategory
+  );
+
+  console.log(boards[boardNameIndex]);
+
   return (
-    <AddOrEditModalWrapper>
-      <StyledAddOrEditModal>
+    <AddOrEditModalWrapper onClick={() => setWhichModalIsOpen("")}>
+      <StyledAddOrEditModal onClick={(e) => e.stopPropagation()}>
         <h2>Add New Task</h2>
         <TitleDiv>
           <p>Title</p>
@@ -26,7 +35,7 @@ export default function AddOrEditTaskModal() {
         <StatusTitle>Current Status</StatusTitle>
         <StatusList>
           <CurrentStatus onClick={() => setIsStatusModalOpen((open) => !open)}>
-            <p>Todo</p>
+            <p>{boards[boardNameIndex].columns[0].name}</p>
             {isStatusModalOpen ? (
               <img src={arrowUp} alt="arrow-up" />
             ) : (
@@ -36,9 +45,9 @@ export default function AddOrEditTaskModal() {
 
           {isStatusModalOpen && (
             <StatusCategories>
-              <p>todo</p>
-              <p>Now</p>
-              <p>Good</p>
+              {boards[boardNameIndex].columns.map((column) => {
+                return <p key={column.name}>{column.name}</p>;
+              })}
             </StatusCategories>
           )}
         </StatusList>
