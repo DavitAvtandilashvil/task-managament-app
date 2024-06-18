@@ -11,6 +11,7 @@ interface IBoards {
       subtasks: {
         title: string;
         isCompleted: boolean;
+        id: string;
       }[];
     }[];
   }[];
@@ -26,6 +27,7 @@ interface ITask {
     subtasks: {
       title: string;
       isCompleted: boolean;
+      id: string;
     }[];
   }[];
 }
@@ -37,5 +39,12 @@ interface IContent {
   subtasks: {
     title: string;
     isCompleted: boolean;
+    id: string;
   }[];
+}
+
+interface ISubstukc {
+  id: string;
+  title: string;
+  isCompleted: boolean;
 }
