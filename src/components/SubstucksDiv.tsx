@@ -1,29 +1,65 @@
 import styled from "styled-components";
 import cross from "/assets/icon-cross.svg";
 
-export default function SubstucksDiv() {
+interface SubstucksDivProps {
+  setSubstaks: React.Dispatch<React.SetStateAction<ISubstukc[]>>;
+  subtasks: ISubstukc[];
+}
+
+export default function SubstucksDiv({
+  setSubstaks,
+  subtasks,
+}: SubstucksDivProps) {
+  function addSubstucksInput() {
+    setSubstaks((substuck) => [
+      ...substuck,
+      {
+        id: crypto.randomUUID(),
+        title: "",
+        isCompleted: false,
+      },
+    ]);
+  }
+
+  function handleEditSubstuck(
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: string
+  ) {
+    const titleIndex = subtasks.findIndex((substuck) => substuck.id === id);
+    subtasks[titleIndex].title = e.target.value;
+    setSubstaks([...subtasks]);
+  }
+
+  function handleDeleteSubstuckInput(id: string) {
+    setSubstaks((substuck) => substuck.filter((item) => item.id !== id));
+  }
+
   return (
     <StyledSubstucksDiv>
       <Title>Subtasks</Title>
 
       <AddSubstucks>
-        <SingleSubstuck>
-          <input type="text" placeholder="e.g. Make coffee" />
-          <img src={cross} alt="cross" />
-        </SingleSubstuck>
-
-        <SingleSubstuck>
-          <input type="text" placeholder="e.g. Make coffee" />
-          <img src={cross} alt="cross" />
-        </SingleSubstuck>
-
-        <SingleSubstuck>
-          <input type="text" placeholder="e.g. Make coffee" />
-          <img src={cross} alt="cross" />
-        </SingleSubstuck>
+        {subtasks.map((substuck) => {
+          return (
+            <SingleSubstuck key={substuck.id}>
+              <input
+                type="text"
+                placeholder="e.g. Make coffee"
+                onChange={(e) => handleEditSubstuck(e, substuck.id)}
+              />
+              <img
+                src={cross}
+                alt="cross"
+                onClick={() => handleDeleteSubstuckInput(substuck.id)}
+              />
+            </SingleSubstuck>
+          );
+        })}
       </AddSubstucks>
 
-      <AddSubstuckBtn>+ Add New Subtask</AddSubstuckBtn>
+      <AddSubstuckBtn onClick={addSubstucksInput}>
+        + Add New Subtask
+      </AddSubstuckBtn>
     </StyledSubstucksDiv>
   );
 }
